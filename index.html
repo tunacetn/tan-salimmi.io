@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Selam, tanışalım mı?</title>
+  <style>
+    body {
+      background-color: #ffe6e6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #d6336c;
+      margin-bottom: 10px;
+    }
+
+    #gifContainer {
+      margin-bottom: 20px;
+    }
+
+    #buttons {
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #yesBtn {
+      background-color: #ff66b2;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #999;
+      color: white;
+      position: absolute;
+    }
+
+    .heart {
+      position: absolute;
+      color: red;
+      animation: floatUp 3s ease-in forwards;
+      font-size: 2em;
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-200px); }
+    }
+
+    .happy-gif {
+      animation: dance 1s infinite;
+    }
+
+    @keyframes dance {
+      0% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.1) rotate(5deg); }
+      50% { transform: scale(1.2) rotate(0deg); }
+      75% { transform: scale(1.1) rotate(-5deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    #audioPlayer {
+      display: none; /* Oynatıcı gizli */
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Selam, tanışalım mı? ❤️</h1>
+
+  <!-- GIF -->
+  <div id="gifContainer">
+    <img id="mcqueenGif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXVhZHUyNHo5OHk4bmFzbm9hcXEwNXc5ejczeXltOWpxZXFmZGljOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dYx3YFq2OiVLIssQH9/giphy.gif" alt="McQueen GIF" width="300">
+  </div>
+
+  <!-- Butonlar -->
+  <div id="buttons">
+    <button id="yesBtn">Evet 💖</button>
+    <button id="noBtn">Hayır 😢</button>
+  </div>
+
+  <!-- Müzik (Görünmez) -->
+  <audio id="audioPlayer" autoplay>
+    <source src="pode.mp3.mp3" type="audio/mp3">
+    Tarayıcınız ses etiketini desteklemiyor.
+  </audio>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const gif = document.getElementById("mcqueenGif");
+    const audioPlayer = document.getElementById("audioPlayer");
+
+    // Hayır butonundan kaç
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
+
+    // Evet'e tıklanınca
+    yesBtn.addEventListener("click", () => {
+      // Kalpler çıkar
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "💖";
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.top = `${Math.random() * 100}%`;
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 3000);
+      }
+
+      // Müzik çalsın
+      audioPlayer.play();
+
+      // GIF değişsin ve dans etsin
+      gif.src = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHZ4ODJ4amp6cGc5cjdncXV5eDZocDZ6cGlrcjl6MnljdmJtM3NvMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4pTfx2qLszoacZRS/giphy.gif";
+      gif.classList.add("happy-gif");
+
+      // Yazı değişsin
+      document.querySelector("h1").textContent = "Pode, pode, pode sentar Pode, pode, pode sentar E se tiver muito excitada, pode dançar pelada! 💕";
+
+      // Butonlar gizlensin
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+    });
+  </script>
+</body>
+</html>
